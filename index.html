@@ -33,12 +33,6 @@
             box-shadow: 0 0 20px rgba(236, 72, 153, 0.3), inset 0 0 15px rgba(236, 72, 153, 0.1);
         }
 
-        /* Perspective for Cards */
-        .perspective-1000 { perspective: 1000px; }
-        .transform-style-3d { transform-style: preserve-3d; }
-        .backface-hidden { backface-visibility: hidden; }
-        .rotate-y-180 { transform: rotateY(180deg); }
-
         /* Cursor blink for typing effect */
         .cursor-blink::after {
             content: '|';
@@ -92,19 +86,19 @@
                 </button>
             </div>
 
-            <!-- Anonymous Comment Form Modal (Shown if "Garing") -->
+            <!-- Anonymous Comment Form Modal (Keyboard Auto-Focus On Mobile) -->
             <div id="comment-modal" class="hidden w-full mt-4 bg-slate-950 border border-slate-800 rounded-2xl p-4 text-left">
-                <p class="text-xs text-pink-400 font-semibold mb-2"><i class="fa-solid fa-comment-dots"></i> Yaa dibilang garing... Tulis pesan anonim kamu ke Sarul:</p>
-                <textarea id="comment-input" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-pink-500 mb-3 resize-none" placeholder="Ketik saran/ejekan kamu secara anonim di sini..."></textarea>
+                <p class="text-xs text-pink-400 font-semibold mb-2"><i class="fa-solid fa-comment-dots"></i> Pesan anonim kamu untuk Sarul:</p>
+                <textarea id="comment-input" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-pink-500 mb-3 resize-none select-text cursor-text" placeholder="Ketik pesan kamu di sini..."></textarea>
                 <button onclick="sendAnonymousComment()" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 font-pixel text-xs text-white rounded-xl transition flex items-center justify-center gap-2">
                     <i class="fa-solid fa-paper-plane"></i> Kirim Pesan
                 </button>
             </div>
 
-            <!-- Sweet Auto Response (Shown if "I Love You Too") -->
-            <div id="love-modal" class="hidden w-full mt-4 bg-pink-950/40 border border-pink-500/40 rounded-2xl p-5 text-center animate-fade-in">
+            <!-- Sweet Auto Response -->
+            <div id="love-modal" class="hidden w-full mt-4 bg-pink-950/40 border border-pink-500/40 rounded-2xl p-5 text-center">
                 <p class="font-pixel text-xs text-pink-300 mb-3">Aww, makasih beb! 🥰❤️</p>
-                <p class="text-xs text-slate-300 mb-4">Pesan otomatis kamu udah kesimpan di hati Sarul! Sekarang yuk main game bareng!</p>
+                <p class="text-xs text-slate-300 mb-4">Pesan kamu sudah kesimpan. Sekarang yuk main game bareng!</p>
                 <button onclick="showScreen('game-menu')" class="w-full py-3 bg-pink-600 hover:bg-pink-500 font-pixel text-xs text-white rounded-xl shadow-lg transition">
                     LANJUT KE MENU GAME <i class="fa-solid fa-arrow-right ml-1"></i>
                 </button>
@@ -113,157 +107,191 @@
         </section>
 
         <!-- ================= GAME SELECTION MENU ================= -->
-        <section id="game-menu" class="hidden w-full max-w-5xl">
+        <section id="game-menu" class="hidden w-full max-w-4xl">
             <div class="text-center mb-8">
                 <h2 class="font-pixel text-2xl md:text-3xl text-pink-400 mb-2 neon-text-pink">ARCADE MINI GAMES</h2>
-                <p class="text-slate-400 text-xs md:text-sm">Pilih mini-game favoritmu untuk dimainkan!</p>
+                <p class="text-slate-400 text-xs md:text-sm">Pilih game untuk dimainkan!</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <!-- Game 1: Block Blast -->
-                <div onclick="initBlockBlast(); showScreen('blockblast-screen')" class="group cursor-pointer bg-slate-900/80 border border-slate-800 hover:border-amber-500/50 rounded-3xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-amber-500/10 flex flex-col justify-between">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Tic-Tac-Toe -->
+                <div onclick="initTicTacToe(); showScreen('tictactoe-screen')" class="cursor-pointer bg-slate-900/80 border border-slate-800 hover:border-pink-500/50 rounded-3xl p-6 transition flex flex-col justify-between">
                     <div>
-                        <div class="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-2xl mb-4 group-hover:scale-110 transition">
-                            <i class="fa-solid fa-cubes"></i>
-                        </div>
-                        <h3 class="font-pixel text-base text-white mb-2 group-hover:text-amber-400 transition">Block Blast</h3>
-                        <p class="text-slate-400 text-xs leading-relaxed">Tata balok-balok warna di papan 8x8. Hapus baris & kolom penuh untuk raih skor tertinggi!</p>
-                    </div>
-                    <button class="mt-6 w-full py-2.5 rounded-xl bg-slate-800 group-hover:bg-amber-600 text-white font-semibold text-xs transition">Mainkan Sekarang</button>
-                </div>
-
-                <!-- Game 2: Snake Klasik -->
-                <div onclick="initSnake(); showScreen('snake-screen')" class="group cursor-pointer bg-slate-900/80 border border-slate-800 hover:border-emerald-500/50 rounded-3xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-emerald-500/10 flex flex-col justify-between">
-                    <div>
-                        <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl mb-4 group-hover:scale-110 transition">
-                            <i class="fa-solid fa-staff-snake"></i>
-                        </div>
-                        <h3 class="font-pixel text-base text-white mb-2 group-hover:text-emerald-400 transition">Snake Klasik</h3>
-                        <p class="text-slate-400 text-xs leading-relaxed">Kendalikan ular, makan apel merah, dan jangan menabrak dinding!</p>
-                    </div>
-                    <button class="mt-6 w-full py-2.5 rounded-xl bg-slate-800 group-hover:bg-emerald-600 text-white font-semibold text-xs transition">Mainkan Sekarang</button>
-                </div>
-
-                <!-- Game 3: Flappy Bird -->
-                <div onclick="initFlappy(); showScreen('flappy-screen')" class="group cursor-pointer bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50 rounded-3xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-cyan-500/10 flex flex-col justify-between">
-                    <div>
-                        <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-2xl mb-4 group-hover:scale-110 transition">
-                            <i class="fa-solid fa-crow"></i>
-                        </div>
-                        <h3 class="font-pixel text-base text-white mb-2 group-hover:text-cyan-400 transition">Flappy Pixel</h3>
-                        <p class="text-slate-400 text-xs leading-relaxed">Kepakkan sayap dan lewati rintangan pipa-pipa hijau sejauh mungkin.</p>
-                    </div>
-                    <button class="mt-6 w-full py-2.5 rounded-xl bg-slate-800 group-hover:bg-cyan-600 text-white font-semibold text-xs transition">Mainkan Sekarang</button>
-                </div>
-
-                <!-- Game 4: Tic-Tac-Toe -->
-                <div onclick="initTicTacToe(); showScreen('tictactoe-screen')" class="group cursor-pointer bg-slate-900/80 border border-slate-800 hover:border-pink-500/50 rounded-3xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-pink-500/10 flex flex-col justify-between">
-                    <div>
-                        <div class="w-14 h-14 rounded-2xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center text-pink-400 text-2xl mb-4 group-hover:scale-110 transition">
+                        <div class="w-14 h-14 rounded-2xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center text-pink-400 text-2xl mb-4">
                             <i class="fa-solid fa-xmark"></i>
                         </div>
-                        <h3 class="font-pixel text-base text-white mb-2 group-hover:text-pink-400 transition">Tic-Tac-Toe</h3>
-                        <p class="text-slate-400 text-xs leading-relaxed">Tanding 3 simbol searah dengan teman atau lawan AI pintar.</p>
+                        <h3 class="font-pixel text-base text-white mb-2">Tic-Tac-Toe</h3>
+                        <p class="text-slate-400 text-xs">Game Klasik X dan O vs Teman atau AI.</p>
                     </div>
-                    <button class="mt-6 w-full py-2.5 rounded-xl bg-slate-800 group-hover:bg-pink-600 text-white font-semibold text-xs transition">Mainkan Sekarang</button>
-                </div>
-
-                <!-- Game 5: Memory Match -->
-                <div onclick="initMemoryGame(); showScreen('memory-screen')" class="group cursor-pointer bg-slate-900/80 border border-slate-800 hover:border-purple-500/50 rounded-3xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-purple-500/10 flex flex-col justify-between">
-                    <div>
-                        <div class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-2xl mb-4 group-hover:scale-110 transition">
-                            <i class="fa-solid fa-clone"></i>
-                        </div>
-                        <h3 class="font-pixel text-base text-white mb-2 group-hover:text-purple-400 transition">Memory Match</h3>
-                        <p class="text-slate-400 text-xs leading-relaxed">Uji daya ingatmu! Cocokkan 8 pasang ikon dalam langkah sesingkat mungkin.</p>
-                    </div>
-                    <button class="mt-6 w-full py-2.5 rounded-xl bg-slate-800 group-hover:bg-purple-600 text-white font-semibold text-xs transition">Mainkan Sekarang</button>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- ================= MINI GAME 1: BLOCK BLAST ================= -->
-        <section id="blockblast-screen" class="hidden w-full max-w-md bg-slate-900/90 border border-slate-800 rounded-3xl p-6 backdrop-blur-md shadow-2xl flex flex-col items-center">
-            <div class="w-full flex justify-between items-center mb-4">
-                <div>
-                    <h2 class="font-pixel text-base text-amber-400">Block Blast</h2>
-                    <p class="text-xs text-slate-400">Skor: <span id="bb-score" class="text-white font-bold">0</span> | Rekor: <span id="bb-high" class="text-amber-400 font-bold">0</span></p>
-                </div>
-                <button onclick="initBlockBlast()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition flex items-center gap-1">
-                    <i class="fa-solid fa-rotate-right"></i> Reset
-                </button>
-            </div>
-
-            <!-- 8x8 Main Grid -->
-            <div id="bb-grid" class="grid grid-cols-8 gap-1 p-2 bg-slate-950 rounded-2xl border border-slate-800 w-full aspect-square mb-6">
-                <!-- Dynamically Generated by JS -->
-            </div>
-
-            <!-- Block Pieces Selection Tray -->
-            <div id="bb-pieces" class="flex justify-around items-center w-full min-h-[90px] bg-slate-950/50 p-2 rounded-2xl border border-slate-800/80">
-                <!-- 3 Available Shape Pieces -->
-            </div>
-        </section>
-
-        <!-- ================= MINI GAME 2: SNAKE ================= -->
-        <section id="snake-screen" class="hidden w-full max-w-md bg-slate-900/90 border border-slate-800 rounded-3xl p-6 backdrop-blur-md shadow-2xl flex flex-col items-center">
-            <div class="w-full flex justify-between items-center mb-4">
-                <div>
-                    <h2 class="font-pixel text-base text-emerald-400">Snake Klasik</h2>
-                    <p class="text-xs text-slate-400">Skor: <span id="snake-score" class="text-white font-bold">0</span> | Rekor: <span id="snake-high" class="text-emerald-400 font-bold">0</span></p>
-                </div>
-                <button onclick="initSnake()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition">
-                    <i class="fa-solid fa-rotate-right"></i> Reset
-                </button>
-            </div>
-
-            <div class="relative w-full aspect-square bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 flex items-center justify-center mb-4">
-                <canvas id="snake-canvas" width="320" height="320" class="block"></canvas>
-                <div id="snake-overlay" class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm flex flex-col items-center justify-center text-center p-4">
-                    <h3 id="snake-overlay-title" class="font-pixel text-emerald-400 text-sm mb-2">ULAR KLASIK</h3>
-                    <p id="snake-overlay-desc" class="text-xs text-slate-400 mb-4">Gunakan D-Pad atau tombol panah keyboard</p>
-                    <button onclick="startSnakeGame()" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 font-pixel text-xs rounded-xl text-white shadow-lg transition">START</button>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-3 gap-2 w-40">
-                <div></div>
-                <button onclick="changeSnakeDir('UP')" class="h-10 bg-slate-800 active:bg-emerald-600 rounded-xl text-slate-300 flex items-center justify-center"><i class="fa-solid fa-chevron-up"></i></button>
-                <div></div>
-                <button onclick="changeSnakeDir('LEFT')" class="h-10 bg-slate-800 active:bg-emerald-600 rounded-xl text-slate-300 flex items-center justify-center"><i class="fa-solid fa-chevron-left"></i></button>
-                <button onclick="changeSnakeDir('DOWN')" class="h-10 bg-slate-800 active:bg-emerald-600 rounded-xl text-slate-300 flex items-center justify-center"><i class="fa-solid fa-chevron-down"></i></button>
-                <button onclick="changeSnakeDir('RIGHT')" class="h-10 bg-slate-800 active:bg-emerald-600 rounded-xl text-slate-300 flex items-center justify-center"><i class="fa-solid fa-chevron-right"></i></button>
-            </div>
-        </section>
-
-        <!-- ================= MINI GAME 3: FLAPPY BIRD ================= -->
-        <section id="flappy-screen" class="hidden w-full max-w-md bg-slate-900/90 border border-slate-800 rounded-3xl p-6 backdrop-blur-md shadow-2xl flex flex-col items-center">
-            <div class="w-full flex justify-between items-center mb-4">
-                <div>
-                    <h2 class="font-pixel text-base text-cyan-400">Flappy Pixel</h2>
-                    <p class="text-xs text-slate-400">Skor: <span id="flappy-score" class="text-white font-bold">0</span> | Rekor: <span id="flappy-high" class="text-cyan-400 font-bold">0</span></p>
-                </div>
-                <button onclick="initFlappy()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition">
-                    <i class="fa-solid fa-rotate-right"></i> Reset
-                </button>
-            </div>
-
-            <div class="relative w-full aspect-[4/5] bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 flex items-center justify-center cursor-pointer" onclick="jumpFlappy()">
-                <canvas id="flappy-canvas" width="320" height="400" class="block"></canvas>
-                <div id="flappy-overlay" class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm flex flex-col items-center justify-center text-center p-4">
-                    <h3 id="flappy-overlay-title" class="font-pixel text-cyan-400 text-sm mb-2">FLAPPY PIXEL</h3>
-                    <p class="text-xs text-slate-400 mb-4">Ketuk layar / tekan Spasi untuk terbang</p>
-                    <button onclick="startFlappyGame()" class="px-6 py-2.5 bg-cyan-600 hover:bg-cyan-500 font-pixel text-xs rounded-xl text-white shadow-lg transition">START</button>
+                    <button class="mt-6 w-full py-2.5 rounded-xl bg-pink-600 text-white font-semibold text-xs">Mainkan Sekarang</button>
                 </div>
             </div>
         </section>
 
-        <!-- ================= MINI GAME 4: TIC TAC TOE ================= -->
+        <!-- ================= MINI GAME: TIC TAC TOE ================= -->
         <section id="tictactoe-screen" class="hidden w-full max-w-md bg-slate-900/90 border border-slate-800 rounded-3xl p-6 backdrop-blur-md shadow-2xl">
             <div class="flex justify-between items-center mb-4">
                 <div>
                     <h2 class="font-pixel text-base text-pink-400">Tic-Tac-Toe</h2>
                     <p id="ttt-status" class="text-xs text-slate-400 mt-1">Giliran: Pemain X</p>
-     
+                </div>
+                <button onclick="initTicTacToe()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition">
+                    <i class="fa-solid fa-rotate-right"></i> Reset
+                </button>
+            </div>
+            <div id="ttt-board" class="grid grid-cols-3 gap-3 aspect-square mb-4"></div>
+        </section>
+
+    </main>
+
+    <script>
+        // Dialog Typing Text Data
+        const dialogLines = [
+            "dari sarul",
+            "buah nangka...",
+            "buah kedondong...",
+            "i love you beb ❤️"
+        ];
+
+        let lineIdx = 0;
+        let charIdx = 0;
+        let isSoundOn = true;
+
+        const typingTextEl = document.getElementById('typing-text');
+        const choiceBtns = document.getElementById('choice-buttons');
+        const commentModal = document.getElementById('comment-modal');
+        const loveModal = document.getElementById('love-modal');
+
+        function playSynthSound(freq = 440, duration = '8n') {
+            if (!isSoundOn) return;
+            try {
+                const synth = new Tone.Synth().toDestination();
+                synth.triggerAttackRelease(freq, duration);
+            } catch (e) {}
+        }
+
+        function typeNextChar() {
+            if (lineIdx < dialogLines.length) {
+                const currentLine = dialogLines[lineIdx];
+                if (charIdx < currentLine.length) {
+                    typingTextEl.textContent += currentLine.charAt(charIdx);
+                    charIdx++;
+                    playSynthSound(300 + (charIdx * 20), '16n');
+                    setTimeout(typeNextChar, 80);
+                } else {
+                    setTimeout(() => {
+                        lineIdx++;
+                        charIdx = 0;
+                        if (lineIdx < dialogLines.length) {
+                            typingTextEl.textContent = '';
+                            setTimeout(typeNextChar, 400);
+                        } else {
+                            typingTextEl.classList.remove('cursor-blink');
+                            choiceBtns.classList.remove('hidden');
+                            choiceBtns.classList.add('flex');
+                        }
+                    }, 1200);
+                }
+            }
+        }
+
+        function handleChoice(type) {
+            choiceBtns.classList.add('hidden');
+            if (type === 'garing') {
+                commentModal.classList.remove('hidden');
+                setTimeout(() => {
+                    const input = document.getElementById('comment-input');
+                    input.focus();
+                }, 100);
+            } else if (type === 'love') {
+                loveModal.classList.remove('hidden');
+                document.getElementById('hub-btn').classList.remove('hidden');
+            }
+        }
+
+        function sendAnonymousComment() {
+            const text = document.getElementById('comment-input').value;
+            if (!text.trim()) {
+                alert('Tulis pesan terlebih dahulu!');
+                return;
+            }
+            alert('Pesan anonim berhasil dikirim ke Sarul!');
+            showScreen('game-menu');
+        }
+
+        function showScreen(screenId) {
+            const screens = ['dialog-screen', 'game-menu', 'tictactoe-screen'];
+            screens.forEach(s => {
+                const el = document.getElementById(s);
+                if (el) el.classList.add('hidden');
+            });
+            const activeEl = document.getElementById(screenId);
+            if (activeEl) activeEl.classList.remove('hidden');
+            if (screenId !== 'dialog-screen') {
+                document.getElementById('hub-btn').classList.remove('hidden');
+            }
+        }
+
+        function toggleSound() {
+            isSoundOn = !isSoundOn;
+            document.getElementById('sound-text').textContent = isSoundOn ? 'SUARA: ON' : 'SUARA: OFF';
+        }
+
+        // Tic Tac Toe Logic
+        let tttBoard = Array(9).fill('');
+        let tttTurn = 'X';
+        let tttActive = true;
+
+        function initTicTacToe() {
+            tttBoard = Array(9).fill('');
+            tttTurn = 'X';
+            tttActive = true;
+            document.getElementById('ttt-status').textContent = 'Giliran: Pemain X';
+            const boardEl = document.getElementById('ttt-board');
+            boardEl.innerHTML = '';
+            for (let i = 0; i < 9; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'bg-slate-950 border border-slate-800 rounded-2xl text-2xl font-pixel flex items-center justify-center text-pink-400 active:scale-95 transition';
+                btn.onclick = () => makeMove(i);
+                boardEl.appendChild(btn);
+            }
+        }
+
+        function makeMove(idx) {
+            if (!tttActive || tttBoard[idx] !== '') return;
+            tttBoard[idx] = tttTurn;
+            const btn = document.getElementById('ttt-board').children[idx];
+            btn.textContent = tttTurn;
+            btn.classList.add(tttTurn === 'X' ? 'text-pink-400' : 'text-cyan-400');
+
+            if (checkWin()) {
+                document.getElementById('ttt-status').textContent = `Pemain ${tttTurn} Menang! 🎉`;
+                tttActive = false;
+                return;
+            }
+            if (tttBoard.every(cell => cell !== '')) {
+                document.getElementById('ttt-status').textContent = 'Hasil Seri! 🤝';
+                tttActive = false;
+                return;
+            }
+
+            tttTurn = tttTurn === 'X' ? 'O' : 'X';
+            document.getElementById('ttt-status').textContent = `Giliran: Pemain ${tttTurn}`;
+        }
+
+        function checkWin() {
+            const wins = [
+                [0,1,2], [3,4,5], [6,7,8],
+                [0,3,6], [1,4,7], [2,5,8],
+                [0,4,8], [2,4,6]
+            ];
+            return wins.some(w => w.every(i => tttBoard[i] === tttTurn));
+        }
+
+        window.onload = () => {
+            setTimeout(typeNextChar, 500);
+        };
+    </script>
+</body>
+    </html>
+    
